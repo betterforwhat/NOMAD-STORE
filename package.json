@@ -1,0 +1,7 @@
+{
+  "name": "NOMAD-STORE",
+  "version": "1.0.0",
+  "description": "eCommerce PWA Built with NextJS and GraphCMS",
+  "main": "index.js",
+  "license": "MIT"
+}
