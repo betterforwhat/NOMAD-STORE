@@ -1,15 +1,31 @@
 import Head from "next/head";
 import { withRouter } from "next/router";
-import withLayout from "../lib/withLayout";
+import Axios from "../node_modules/axios";
 
-const Post = props => (
+const Movie = props => (
   <div>
     <Head>
-      <title>{props.router.query.title} | Nomad Store</title>
+      <title>{props.movie.title} | Nomad Store</title>
     </Head>
-    <h1>{props.router.query.title}</h1>
-    <p>blalalalalalalala</p>
+    <h1>{props.movie.title}</h1>
+    <p>{props.movie.url}</p>
+    {console.log("movie ", props.movie)}
   </div>
 );
 
-export default withLayout(withRouter(Post));
+Movie.getInitialProps = async context => {
+  const {
+    query : {id}
+  } = context;
+
+  const {
+    data : {
+      data : {movie}
+    }
+  } = await Axios.get(
+    `https://yts.am/api/v2/movie_details.json?movie_id=${id}`
+  );
+  return { movie };
+}
+
+export default withRouter(Movie);
